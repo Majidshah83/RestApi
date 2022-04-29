@@ -21,3 +21,4 @@ Route::post('add',[DbController::class ,'store'])->name('add');
 Route::get('get-api/{id}',[DbController::class ,'getapi'])->name('get-api');
 Route::get('getdata',[DbController::class ,'getAll'])->name('getdata');
 Route::post('postlogin',[DbController::class ,'postLogin'])->name('postlogin');
+Route::get('delete/{id}',[DbController::class ,'destroy'])->name('delete');

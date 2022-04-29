@@ -8,9 +8,12 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+
+
 class DbController extends Controller
 
 {
+    //insert Api
     public function store(Request $request)
     {
 
@@ -29,6 +32,7 @@ class DbController extends Controller
 
 
     }
+    //Eit  data though id
     public function getapi($id)
     {
 
@@ -42,14 +46,14 @@ class DbController extends Controller
        $product=Dbstores::where('id',$request->id)->first();
 
    }
-
+// fatech data
     public function getAll()
     {
          $product=Dbstores::all();
           return response()->json(['message' => "Data get All Products","data" => $product]);
 
     }
-
+// login api
     public function postLogin(Request $request)
     {
         $login=User::where('email',$request->email)->where('password',$request->password)->first();
@@ -66,6 +70,17 @@ class DbController extends Controller
 
 
     }
-
+  public function destroy($id)
+  {
+      $result=Dbstores::find($id);
+    if($result)
+    {
+      $result->delete();
+      return response()->json(['messgae'=>"Data delete successfully"]);
+    }
+    else{
+         return response()->json(['messgae'=>"Data not delete successfully"]);
+    }
+  }
 
 }
