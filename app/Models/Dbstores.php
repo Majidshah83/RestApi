@@ -9,7 +9,9 @@ class Dbstores extends Model
 {
 
     use HasFactory;
-    protected $fillable = ['name','email','password'];
+    protected $fillable = ['name','email','password','uuid'];
+     protected $casts = ['uuid'=>'string'];
+     
      public $timestamps = false;
 
 }

@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('add',[DbController::class ,'store'])->name('add');
 Route::get('get-api/{id}',[DbController::class ,'getapi'])->name('get-api');
 Route::get('getdata',[DbController::class ,'getAll'])->name('getdata');
-;
+Route::post('postlogin',[DbController::class ,'postLogin'])->name('postlogin');
