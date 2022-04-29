@@ -37,20 +37,31 @@ class DbController extends Controller
     {
 
     $product=Dbstores::where('uuid',$id)->first();
-    return response()->json(["data" => $product,'message' => "Data get Successfully"]);
+    if($product)
+    {
+     return response()->json(['success'=>true,"data" => $product,'message' => "Data get Successfully"]);
+
+    }else{
+        return response()->json(['success'=>false,"data" => $product,'message' => "Data not found Successfully"]);
+    }
+
+
 
 
     }
-   public function getapi2(Request $request)
-   {
-       $product=Dbstores::where('id',$request->id)->first();
 
-   }
 // fatech data
     public function getAll()
     {
          $product=Dbstores::all();
-          return response()->json(['message' => "Data get All Products","data" => $product]);
+         if($product)
+         {
+           return response()->json(['success'=>true,'message' => "Data get All Products","data" => $product]);
+         }
+         else{
+             return response()->json(['success'=>false,'message' => "Products Not found","data" => $product]);
+         }
+
 
     }
 // login api
@@ -60,26 +71,50 @@ class DbController extends Controller
         if($login)
         {
             Auth::login($login);
-            return response()->json(['message'=>"login success",'data'=>$login]);
+            return response()->json(['success'=>true,'message'=>"login success",'data'=>$login]);
 
         }
         else{
-            return response()->json(['message'=>"Not login success"]);
+            return response()->json(['success'=>false,'message'=>"Not login success"]);
 
         }
 
 
     }
+//update api
+ public function update(Request $request)
+ {
+    $product=Dbstores::where('id',$request->id)->first();
+    if($product)
+    {
+        $product->name=$request->input('name');
+        $product->uuid=Str::uuid()->toString();
+        $product->email=$request->input('email');
+        $product->password = Hash::make($request->password);
+        $product->update();
+       if(!$product)
+        {
+            return response()->json(['success'=>false, 'message' => 'Update Podcuct Fail please try again']);
+        }
+        return response()->json(['success'=>true, 'message' => ' Podcuct Update successfully']);
+
+    }
+
+
+ }
+
+
+// delete api
   public function destroy($id)
   {
       $result=Dbstores::find($id);
     if($result)
     {
       $result->delete();
-      return response()->json(['messgae'=>"Data delete successfully"]);
+      return response()->json(['success'=>true,'messgae'=>"Data delete successfully"]);
     }
     else{
-         return response()->json(['messgae'=>"Data not delete successfully"]);
+         return response()->json(['success'=>false,'messgae'=>"Data not delete successfully"]);
     }
   }
 
