@@ -22,4 +22,6 @@ Route::get('get-api/{id}',[DbController::class ,'getapi'])->name('get-api');
 Route::get('getdata',[DbController::class ,'getAll'])->name('getdata');
 Route::post('postlogin',[DbController::class ,'postLogin'])->name('postlogin');
 Route::post('update/{id}',[DbController::class ,'update'])->name('update');
-Route::get('delete/{id}',[DbController::class ,'destroy'])->name('delete');
+Route::post('update/{id}',[DbController::class ,'update'])->name('update');
+Route::get('search/{key}',[DbController::class ,'serachApi'])->name('search')
+;

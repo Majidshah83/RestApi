@@ -84,6 +84,8 @@ class DbController extends Controller
 //update api
  public function update(Request $request)
  {
+
+
     $product=Dbstores::where('id',$request->id)->first();
     if($product)
     {
@@ -103,6 +105,20 @@ class DbController extends Controller
 
  }
 
+//serach api
+public function serachApi($key)
+{
+
+    $result=Dbstores::where('name','Like',"%".$key."%")->get();
+    if(count($result)){
+         return Response()->json($result);
+        }
+        else
+        {
+        return response()->json(['Result' => 'No Data not found'], 404);
+      }
+
+}
 
 // delete api
   public function destroy($id)
@@ -117,5 +133,7 @@ class DbController extends Controller
          return response()->json(['success'=>false,'messgae'=>"Data not delete successfully"]);
     }
   }
+
+
 
 }
